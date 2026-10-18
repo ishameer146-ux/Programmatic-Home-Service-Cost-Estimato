@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Service Cost Estimator | 2026 Local Pricing Guide</title>
+  <meta name="description" id="meta-description" content="Calculate accurate 2026 local prices for solar, kitchen remodels, and roofing across US, UK, and Australia with dynamic labor and material breakdown.">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Dynamic JSON-LD Schema Hook -->
+  <script type="application/ld+json" id="dynamic-faq-schema"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col font-sans">
+
+  <!-- TOP AD PLACEMENT: Leaderboard (728x90 standard banner) -->
+  <div class="bg-slate-200 border-b border-slate-300 py-2">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col items-center justify-center">
+      <span class="text-[10px] tracking-widest text-slate-500 uppercase font-bold mb-1">Advertisement</span>
+      <div class="w-full max-w-[728px] h-[90px] bg-slate-100 border border-dashed border-slate-400 rounded flex items-center justify-center text-xs text-slate-500">
+        Leaderboard Ad Slot [728x90] &bull; Mediavine / Raptive Integration Ready
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVIGATION HEADER -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="#/" class="flex items-center space-x-2.5 text-brand-700 font-extrabold text-xl tracking-tight">
+        <i data-lucide="calculator" class="w-6 h-6 text-brand-600"></i>
+        <span>TrueCost<span class="text-slate-900">Home</span></span>
+      </a>
+      <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-600">
+        <a href="#/cost/solar-panel-installation/austin-tx" class="hover:text-brand-600 transition">Solar Estimates</a>
+        <a href="#/cost/kitchen-remodel/london-uk" class="hover:text-brand-600 transition">Kitchen Guides</a>
+        <a href="#/cost/roof-replacement/sydney-au" class="hover:text-brand-600 transition">Roofing Costs</a>
+      </nav>
+      <div class="flex items-center">
+        <button onclick="document.getElementById('affiliate-box').scrollIntoView({ behavior: 'smooth' });" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-semibold rounded-lg shadow-sm text-white bg-brand-600 hover:bg-brand-700 transition">
+          <i data-lucide="shield-check" class="w-4 h-4 mr-1.5"></i> Get a Contractor Quote
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN HERO & PROGRAMMATIC ENGINE -->
+  <main class="flex-grow">
+    <div class="bg-gradient-to-b from-white to-slate-100 border-b border-slate-200 pt-10 pb-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <span class="inline-flex items-center gap-1.5 py-1 px-3 rounded-full text-xs font-semibold bg-brand-50 text-brand-700 border border-brand-200 mb-4">
+          <i data-lucide="badge-percent" class="w-3.5 h-3.5"></i> Verified 2026 Local Market Labor & Material Rates
+        </span>
+        <h1 id="page-h1" class="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight mb-4 max-w-4xl mx-auto leading-tight">
+          Dynamic Service Cost Estimator
+        </h1>
+        <p id="page-subtitle" class="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto mb-8">
+          Select your local market and home service scope to calculate instant estimates based on current municipal permits, labor, and materials.
+        </p>
+
+        <!-- Dynamic Dropdown Control Bar -->
+        <div class="bg-white p-4 sm:p-6 rounded-2xl shadow-xl border border-slate-200/80 max-w-3xl mx-auto flex flex-col md:flex-row items-center gap-4">
+          <div class="w-full text-left">
+            <label for="service-select" class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Select Project</label>
+            <div class="relative">
+              <select id="service-select" class="w-full pl-3 pr-10 py-2.5 bg-slate-50 border border-slate-300 rounded-lg text-sm font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:bg-white appearance-none"></select>
+              <i data-lucide="chevron-down" class="w-4 h-4 text-slate-500 absolute right-3 top-3.5 pointer-events-none"></i>
+            </div>
+          </div>
+
+          <div class="w-full text-left">
+            <label for="city-select" class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Select City</label>
+            <div class="relative">
+              <select id="city-select" class="w-full pl-3 pr-10 py-2.5 bg-slate-50 border border-slate-300 rounded-lg text-sm font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:bg-white appearance-none"></select>
+              <i data-lucide="chevron-down" class="w-4 h-4 text-slate-500 absolute right-3 top-3.5 pointer-events-none"></i>
+            </div>
+          </div>
+
+          <div class="w-full md:w-auto self-end">
+            <button id="calculate-btn" class="w-full md:w-auto px-6 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm rounded-lg shadow transition flex items-center justify-center gap-2">
+              <i data-lucide="refresh-cw" class="w-4 h-4"></i> Calculate
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DYNAMIC CONTENT AREA -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+      <!-- 40-WORD AI OVERVIEW ANSWER BOX (Google AEO Target) -->
+      <section class="mb-10 bg-slate-100 border border-slate-300 rounded-xl p-5 shadow-sm">
+        <div class="flex items-center gap-2 text-slate-700 font-semibold text-xs tracking-wider uppercase mb-2">
+          <i data-lucide="sparkles" class="w-4 h-4 text-brand-600"></i>
+          <span>Direct Cost Summary (Google AI Overview Optimized)</span>
+        </div>
+        <p id="ai-answer-box" class="text-slate-800 text-sm md:text-base leading-relaxed font-medium">
+          Loading calculated regional cost summary...
+        </p>
+      </section>
+
+      <!-- ESTIMATOR WORKSPACE: Controls, Output & Chart -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Left: Sliders and Breakdown Engine (7 cols) -->
+        <div class="lg:col-span-7 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm">
+          <h2 class="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+            <i data-lucide="sliders" class="w-5 h-5 text-brand-600"></i>
+            Project Scope Parameters
+          </h2>
+
+          <!-- Slider 1: Scale / Size -->
+          <div class="mb-6">
+            <div class="flex justify-between items-center mb-2">
+              <label for="size-slider" id="size-label" class="text-sm font-semibold text-slate-700">Project Scale</label>
+              <span id="size-value-display" class="text-sm font-bold text-brand-600 bg-brand-50 px-2 py-0.5 rounded">0</span>
+            </div>
+            <input type="range" id="size-slider" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-brand-600">
+            <div class="flex justify-between text-[11px] text-slate-400 mt-1">
+              <span id="size-min-label">Min</span>
+              <span id="size-max-label">Max</span>
+            </div>
+          </div>
+
+          <!-- Slider 2: Quality Tier -->
+          <div class="mb-8">
+            <div class="flex justify-between items-center mb-2">
+              <label class="text-sm font-semibold text-slate-700">Material Grade Tier</label>
+              <span id="tier-badge" class="text-xs font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-slate-200 text-slate-800">Standard</span>
+            </div>
+            <div class="grid grid-cols-3 gap-2">
+              <button type="button" data-tier="0.85" data-name="Economy" class="tier-btn py-2 text-xs font-semibold rounded-lg border border-slate-300 hover:bg-slate-50 transition">Economy</button>
+              <button type="button" data-tier="1.0" data-name="Standard" class="tier-btn py-2 text-xs font-semibold rounded-lg border border-brand-600 bg-brand-50 text-brand-700 transition">Standard</button>
+              <button type="button" data-tier="1.35" data-name="Premium" class="tier-btn py-2 text-xs font-semibold rounded-lg border border-slate-300 hover:bg-slate-50 transition">Premium</button>
+            </div>
+          </div>
+
+          <!-- Dynamic Total Price Banner -->
+          <div class="p-6 rounded-xl bg-slate-900 text-white flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div>
+              <span class="text-xs font-medium uppercase tracking-widest text-slate-400">Total Estimated Cost</span>
+              <div id="total-cost-display" class="text-3xl sm:text-4xl font-extrabold text-white mt-0.5">$0</div>
+              <p id="local-delta-note" class="text-xs text-slate-400 mt-1">Reflects regional adjustments & current building codes</p>
+            </div>
+            <button onclick="document.getElementById('affiliate-box').scrollIntoView({ behavior: 'smooth' });" class="w-full sm:w-auto px-5 py-2.5 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm shadow transition">
+              Lock In Estimate
+            </button>
+          </div>
+
+          <!-- Cost Breakdown List -->
+          <div class="mt-8 border-t border-slate-100 pt-6">
+            <h3 class="text-sm font-bold text-slate-900 mb-4">Itemized Cost Structure</h3>
+            <div class="space-y-3">
+              <div class="flex justify-between items-center text-sm">
+                <span class="text-slate-600 flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-blue-500 inline-block"></span> Materials & Equipment (45%)</span>
+                <span id="breakdown-materials" class="font-semibold text-slate-900">$0</span>
+              </div>
+              <div class="flex justify-between items-center text-sm">
+                <span class="text-slate-600 flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-amber-500 inline-block"></span> Certified Local Labor (40%)</span>
+                <span id="breakdown-labor" class="font-semibold text-slate-900">$0</span>
+              </div>
+              <div class="flex justify-between items-center text-sm">
+                <span class="text-slate-600 flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-indigo-500 inline-block"></span> Municipal Permits & Disposal (15%)</span>
+                <span id="breakdown-permits" class="font-semibold text-slate-900">$0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Visualization & Side Placements (5 cols) -->
+        <div class="lg:col-span-5 space-y-8">
+          
+          <!-- Chart Component Container -->
+          <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+            <h2 class="text-base font-bold text-slate-900 mb-4 flex items-center gap-2">
+              <i data-lucide="pie-chart" class="w-4 h-4 text-brand-600"></i>
+              Budget Allocation Chart
+            </h2>
+            <div class="relative h-60 w-full flex items-center justify-center">
+              <canvas id="costDonutChart"></canvas>
+            </div>
+            <p class="text-center text-xs text-slate-400 mt-4">Chart updates synchronously with size, tier, and city adjustments.</p>
+          </div>
+
+          <!-- MONETIZATION SLOT 1: Sponsored Local Contractor Affiliate Card -->
+          <div id="affiliate-box" class="bg-gradient-to-br from-white to-amber-50 border-2 border-amber-300 rounded-2xl p-6 shadow-md relative overflow-hidden">
+            <div class="absolute top-0 right-0 bg-amber-400 text-slate-900 text-[10px] uppercase tracking-wider font-extrabold px-3 py-1 rounded-bl-lg">
+              Featured Local Pro
+            </div>
+            <span class="text-[11px] font-bold text-amber-800 uppercase tracking-wider block mb-2">Sponsored Verified Contractor</span>
+            
+            <div class="flex items-center gap-3.5 mb-4">
+              <div class="w-12 h-12 bg-slate-900 text-white rounded-full flex items-center justify-center font-bold text-base flex-shrink-0">
+                PRO
+              </div>
+              <div>
+                <h3 id="contractor-name" class="font-bold text-slate-900 text-base">Elite Trade Specialists</h3>
+                <div class="flex items-center text-amber-500 text-xs">
+                  <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                  <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                  <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                  <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                  <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                  <span class="text-slate-600 ml-1.5 font-medium">(148 verified reviews)</span>
+                </div>
+              </div>
+            </div>
+
+            <p class="text-xs text-slate-600 mb-4 leading-relaxed">
+              Licensed, bonded, and insured. Direct manufacturer partner with prioritized municipal permit clearance in <span id="contractor-city" class="font-semibold text-slate-800">this market</span>.
+            </p>
+
+            <ul class="text-xs text-slate-700 space-y-1.5 mb-5">
+              <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600"></i> Free on-site inspection & 3D mockups</li>
+              <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600"></i> 10-year workmanship warranty included</li>
+              <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600"></i> Zero money down financing available</li>
+            </ul>
+
+            <button onclick="alert('Lead routing trigger: Transferring to local verified partner matching this postal region.');" class="w-full py-3 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-sm rounded-lg shadow transition flex items-center justify-center gap-1.5">
+              <i data-lucide="phone-call" class="w-4 h-4"></i> Request Free Quote
+            </button>
+          </div>
+
+          <!-- MONETIZATION SLOT 2: Sidebar Ad Placement (300x250 Medium Rectangle) -->
+          <div class="bg-slate-200 border border-slate-300 rounded-xl p-4 flex flex-col items-center justify-center">
+            <span class="text-[10px] tracking-widest text-slate-500 uppercase font-bold mb-2">Display Partner</span>
+            <div class="w-[300px] h-[250px] bg-slate-100 border border-dashed border-slate-400 rounded flex flex-col items-center justify-center text-xs text-slate-500 text-center p-4">
+              <span>Medium Rectangle Ad Slot [300x250]</span>
+              <span class="text-[10px] text-slate-400 mt-1">Google AdSense / Raptive Responsive Unit</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- FAQ SECTION (Matches Dynamic JSON-LD Schema) -->
+      <section class="mt-16 border-t border-slate-200 pt-10">
+        <h2 class="text-2xl font-bold text-slate-900 mb-6">Frequently Asked Cost Questions</h2>
+        <div id="faq-container" class="space-y-4 max-w-4xl">
+          <!-- Dynamic FAQ cards injected via JS -->
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-slate-900 text-slate-400 text-xs py-10 mt-16 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
+      <div class="flex items-center gap-2">
+        <i data-lucide="calculator" class="w-5 h-5 text-brand-500"></i>
+        <span class="font-bold text-slate-200 text-sm">TrueCost Home</span>
+        <span>&copy; 2026 Programmatic Cost Estimator Engine. All rights reserved.</span>
+      </div>
+      <div class="flex items-center space-x-6">
+        <a href="#/cost/solar-panel-installation/austin-tx" class="hover:text-white transition">Solar Rates</a>
+        <a href="#/cost/kitchen-remodel/london-uk" class="hover:text-white transition">Kitchen Rates</a>
+        <a href="#/cost/roof-replacement/sydney-au" class="hover:text-white transition">Roof Rates</a>
+        <!-- Hidden LLMS.txt AI scraping endpoint standard reference -->
+        <a href="/llms.txt" class="text-slate-700 hover:text-slate-600 transition" aria-label="Machine Readable Model Context">llms.txt</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CORE EMBEDDED JAVASCRIPT APPLICATION -->
+  <script>
+    /* =====================================================================
+       1. DATA ARCHITECTURE: SERVICES & MULTI-COUNTRY METRO MARKETS
+       ===================================================================== */
+    const SERVICES_DATA = {
+      "solar-panel-installation": {
+        name: "Solar Panel Installation",
+        unitName: "System Capacity (kW)",
+        minUnit: 4,
+        maxUnit: 20,
+        defaultUnit: 8,
+        basePricePerUnit: 2150, // Base cost per kW before location multiplier
+        unitStep: 1,
+        faqs: [
+          {
+            q: "How much does solar panel installation cost in {CITY}?",
+            a: "The average complete installation for a residential solar system in {CITY} ranges from {MIN_COST} to {MAX_COST} depending on kilowatt capacity, panel efficiency, and local interconnection permits."
+          },
+          {
+            q: "What is the typical payback timeline for solar panels in {CITY}?",
+            a: "In {CITY}, most homeowners break even on solar within 6 to 9 years thanks to energy offsets and available regional renewable utility credits."
+          }
+        ]
+      },
+      "kitchen-remodel": {
+        name: "Kitchen Remodel",
+        unitName: "Kitchen Area (Sq. Ft.)",
+        minUnit: 100,
+        maxUnit: 500,
+        defaultUnit: 220,
+        basePricePerUnit: 145, // Base cost per sq ft
+        unitStep: 10,
+        faqs: [
+          {
+            q: "What is the average cost to renovate a kitchen in {CITY}?",
+            a: "A full kitchen renovation in {CITY} typically costs between {MIN_COST} and {MAX_COST}, varying based on countertop materials, custom cabinetry, and plumbing reconfiguration."
+          },
+          {
+            q: "Does a kitchen remodel increase property value in {CITY}?",
+            a: "Yes, standard to high-grade kitchen renovations in {CITY} consistently recoup approximately 65% to 78% of their cost in added property valuation."
+          }
+        ]
+      },
+      "roof-replacement": {
+        name: "Roof Replacement",
+        unitName: "Roof Surface Area (Sq. Ft.)",
+        minUnit: 1000,
+        maxUnit: 4500,
+        defaultUnit: 2000,
+        basePricePerUnit: 6.8, // Base cost per sq ft
+        unitStep: 50,
+        faqs: [
+          {
+            q: "What is the total cost of a new roof in {CITY}?",
+            a: "Homeowners in {CITY} pay between {MIN_COST} and {MAX_COST} for full tear-off and roof replacement, which includes architectural shingles, underlayment, and debris disposal."
+          },
+          {
+            q: "How long does a full roof replacement take in {CITY}?",
+            a: "Most residential roofing replacements in {CITY} are completed in 1 to 3 days, contingent on weather conditions and local structural inspection schedules."
+          }
+        ]
+      }
+    };
+
+    const CITIES_DATA = {
+      "austin-tx": { name: "Austin, TX", country: "US", currency: "$", multiplier: 1.15 },
+      "london-uk": { name: "London, UK", currency: "£", multiplier: 1.25 },
+      "sydney-au": { name: "Sydney, AU", currency: "A$", multiplier: 1.30 },
+      "columbus-oh": { name: "Columbus, OH", currency: "$", multiplier: 0.95 },
+      "los-angeles-ca": { name: "Los Angeles, CA", currency: "$", multiplier: 1.35 },
+      "chicago-il": { name: "Chicago, IL", currency: "$", multiplier: 1.10 },
+      "phoenix-az": { name: "Phoenix, AZ", currency: "$", multiplier: 1.02 },
+      "manchester-uk": { name: "Manchester, UK", currency: "£", multiplier: 1.05 },
+      "melbourne-au": { name: "Melbourne, AU", currency: "A$", multiplier: 1.22 },
+      "toronto-ca": { name: "Toronto, CA", currency: "C$", multiplier: 1.18 }
+    };
+
+    /* =====================================================================
+       2. APPLICATION STATE
+       ===================================================================== */
+    const state = {
+      currentServiceKey: "solar-panel-installation",
+      currentCityKey: "austin-tx",
+      currentUnits: 8,
+      currentTierMultiplier: 1.0,
+      currentTierName: "Standard",
+      chartInstance: null
+    };
+
+    /* =====================================================================
+       3. DOM ELEMENT REFERENCES
+       ===================================================================== */
+    const elements = {
+      serviceSelect: document.getElementById('service-select'),
+      citySelect: document.getElementById('city-select'),
+      calculateBtn: document.getElementById('calculate-btn'),
+      h1: document.getElementById('page-h1'),
+      metaDescription: document.getElementById('meta-description'),
+      aiAnswerBox: document.getElementById('ai-answer-box'),
+      sizeSlider: document.getElementById('size-slider'),
+      sizeLabel: document.getElementById('size-label'),
+      sizeValueDisplay: document.getElementById('size-value-display'),
+      sizeMinLabel: document.getElementById('size-min-label'),
+      sizeMaxLabel: document.getElementById('size-max-label'),
+      tierBadge: document.getElementById('tier-badge'),
+      tierButtons: document.querySelectorAll('.tier-btn'),
+      totalCostDisplay: document.getElementById('total-cost-display'),
+      localDeltaNote: document.getElementById('local-delta-note'),
+      breakdownMaterials: document.getElementById('breakdown-materials'),
+      breakdownLabor: document.getElementById('breakdown-labor'),
+      breakdownPermits: document.getElementById('breakdown-permits'),
+      contractorName: document.getElementById('contractor-name'),
+      contractorCity: document.getElementById('contractor-city'),
+      faqContainer: document.getElementById('faq-container'),
+      faqSchemaTag: document.getElementById('dynamic-faq-schema')
+    };
+
+    /* =====================================================================
+       4. INITIALIZATION & ROUTING ENGINE (Hash-Based)
+       ===================================================================== */
+    function initApp() {
+      populateDropdowns();
+      setupEventListeners();
+      initDonutChart();
+      handleRouting();
+      window.addEventListener('hashchange', handleRouting);
+      lucide.createIcons();
+    }
+
+    function populateDropdowns() {
+      // Services dropdown
+      elements.serviceSelect.innerHTML = Object.entries(SERVICES_DATA)
+        .map(([key, service]) => `<option value="${key}">${service.name}</option>`)
+        .join('');
+
+      // Cities dropdown
+      elements.citySelect.innerHTML = Object.entries(CITIES_DATA)
+        .map(([key, city]) => `<option value="${key}">${city.name}</option>`)
+        .join('');
+    }
+
+    function handleRouting() {
+      const hash = window.location.hash;
+      const routePrefix = "#/cost/";
+
+      if (hash.startsWith(routePrefix)) {
+        const pathSegments = hash.replace(routePrefix, "").split("/");
+        const requestedService = pathSegments[0];
+        const requestedCity = pathSegments[1];
+
+        if (SERVICES_DATA[requestedService]) {
+          state.currentServiceKey = requestedService;
+        }
+        if (CITIES_DATA[requestedCity]) {
+          state.currentCityKey = requestedCity;
+        }
+      }
+
+      elements.serviceSelect.value = state.currentServiceKey;
+      elements.citySelect.value = state.currentCityKey;
+
+      syncServiceParameters(true);
+      recalculateAndRender();
+    }
+
+    function syncServiceParameters(resetToDefault = false) {
+      const service = SERVICES_DATA[state.currentServiceKey];
+      elements.sizeLabel.textContent = service.unitName;
+      elements.sizeSlider.min = service.minUnit;
+      elements.sizeSlider.max = service.maxUnit;
+      elements.sizeSlider.step = service.unitStep;
+
+      elements.sizeMinLabel.textContent = `${service.minUnit} ${service.unitName.includes('kW') ? 'kW' : 'sq ft'}`;
+      elements.sizeMaxLabel.textContent = `${service.maxUnit} ${service.unitName.includes('kW') ? 'kW' : 'sq ft'}`;
+
+      if (resetToDefault) {
+        state.currentUnits = service.defaultUnit;
+      }
+      elements.sizeSlider.value = state.currentUnits;
+      elements.sizeValueDisplay.textContent = `${state.currentUnits} ${service.unitName.includes('kW') ? 'kW' : 'sq ft'}`;
+    }
+
+    function setupEventListeners() {
+      elements.calculateBtn.addEventListener('click', () => {
+        const newService = elements.serviceSelect.value;
+        const newCity = elements.citySelect.value;
+        window.location.hash = `#/cost/${newService}/${newCity}`;
+      });
+
+      elements.sizeSlider.addEventListener('input', (e) => {
+        state.currentUnits = parseFloat(e.target.value);
+        const service = SERVICES_DATA[state.currentServiceKey];
+        elements.sizeValueDisplay.textContent = `${state.currentUnits} ${service.unitName.includes('kW') ? 'kW' : 'sq ft'}`;
+        recalculateAndRender(false); // Update without resetting sliders
+      });
+
+      elements.tierButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          elements.tierButtons.forEach(b => {
+            b.classList.remove('border-brand-600', 'bg-brand-50', 'text-brand-700');
+            b.classList.add('border-slate-300', 'hover:bg-slate-50', 'text-slate-800');
+          });
+          btn.classList.remove('border-slate-300', 'hover:bg-slate-50');
+          btn.classList.add('border-brand-600', 'bg-brand-50', 'text-brand-700');
+
+          state.currentTierMultiplier = parseFloat(btn.dataset.tier);
+          state.currentTierName = btn.dataset.name;
+          elements.tierBadge.textContent = state.currentTierName;
+          recalculateAndRender(false);
+        });
+      });
+    }
+
+    /* =====================================================================
+       5. CALCULATION ENGINE & UI SYNCHRONIZATION
+       ===================================================================== */
+    function formatCurrency(num, symbol) {
+      return symbol + Math.round(num).toLocaleString('en-US');
+    }
+
+    function recalculateAndRender(updateMeta = true) {
+      const service = SERVICES_DATA[state.currentServiceKey];
+      const city = CITIES_DATA[state.currentCityKey];
+
+      // Cost Formulation
+      const baseCalculation = state.currentUnits * service.basePricePerUnit;
+      const localizedBase = baseCalculation * city.multiplier;
+      const totalEstimated = localizedBase * state.currentTierMultiplier;
+
+      // Split distributions: 45% Materials, 40% Labor, 15% Permits
+      const materialsCost = totalEstimated * 0.45;
+      const laborCost = totalEstimated * 0.40;
+      const permitsCost = totalEstimated * 0.15;
+
+      // Range boundaries for SEO and AI Overviews (-15% to +20%)
+      const rangeMin = totalEstimated * 0.85;
+      const rangeMax = totalEstimated * 1.20;
+
+      // Update Numerical Outputs in DOM
+      elements.totalCostDisplay.textContent = formatCurrency(totalEstimated, city.currency);
+      elements.breakdownMaterials.textContent = formatCurrency(materialsCost, city.currency);
+      elements.breakdownLabor.textContent = formatCurrency(laborCost, city.currency);
+      elements.breakdownPermits.textContent = formatCurrency(permitsCost, city.currency);
+
+      const variancePct = Math.round((city.multiplier - 1.0) * 100);
+      elements.localDeltaNote.textContent = variancePct === 0 
+        ? `Directly aligned with Tier-1 baseline pricing indexes.`
+        : `${Math.abs(variancePct)}% ${variancePct > 0 ? 'above' : 'below'} national baseline market rate index.`;
+
+      // Update Affiliate Card details
+      elements.contractorCity.textContent = city.name;
+      elements.contractorName.textContent = `${city.name.split(',')[0]} Trade Pro Group`;
+
+      // Generate the critical 40-Word AI Overview Answer Box
+      const aiOverviewText = `The average cost for ${service.name} in ${city.name} is approximately ${formatCurrency(totalEstimated, city.currency)}. Typical residential projects range from ${formatCurrency(rangeMin, city.currency)} to ${formatCurrency(rangeMax, city.currency)} depending on project size and finish tier. This includes standard materials, local certified labor, and municipal permits.`;
+      elements.aiAnswerBox.textContent = aiOverviewText;
+
+      // Sync Titles & Metadata
+      const pageTitle = `Cost of ${service.name} in ${city.name} | 2026 Prices`;
+      document.title = pageTitle;
+      elements.h1.textContent = `${service.name} Cost in ${city.name}`;
+      
+      const metaDesc = `Calculate 2026 ${service.name} costs in ${city.name}. Realistic range is ${formatCurrency(rangeMin, city.currency)} to ${formatCurrency(rangeMax, city.currency)}. View itemized labor, materials, and permit costs.`;
+      elements.metaDescription.setAttribute('content', metaDesc);
+
+      // Update Interactive Donut Chart
+      updateDonutChart(materialsCost, laborCost, permitsCost);
+
+      // Render Dynamic FAQs and Schema
+      renderDynamicFAQsAndSchema(service, city, rangeMin, rangeMax);
+    }
+
+    /* =====================================================================
+       6. CHART.JS VISUALIZATION CONTROLLER
+       ===================================================================== */
+    function initDonutChart() {
+      const ctx = document.getElementById('costDonutChart').getContext('2d');
+      state.chartInstance = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Materials (45%)', 'Labor (40%)', 'Permits & Fees (15%)'],
+          datasets: [{
+            data: [45, 40, 15],
+            backgroundColor: ['#3b82f6', '#f59e0b', '#6366f1'],
+            borderWidth: 2,
+            borderColor: '#ffffff'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: {
+                boxWidth: 12,
+                font: { size: 11, weight: '500' }
+              }
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  const city = CITIES_DATA[state.currentCityKey];
+                  return ` ${context.label}: ${city.currency}${Math.round(context.raw).toLocaleString('en-US')}`;
+                }
+              }
+            }
+          },
+          cutout: '70%',
+          animation: {
+            duration: 400
+          }
+        }
+      });
+    }
+
+    function updateDonutChart(materials, labor, permits) {
+      if (!state.chartInstance) return;
+      state.chartInstance.data.datasets[0].data = [materials, labor, permits];
+      state.chartInstance.update();
+    }
+
+    /* =====================================================================
+       7. DYNAMIC FAQ DOM & JSON-LD SCHEMA INJECTION (Technical SEO)
+       ===================================================================== */
+    function renderDynamicFAQsAndSchema(service, city, rangeMin, rangeMax) {
+      elements.faqContainer.innerHTML = '';
+      
+      const schemaQuestions = [];
+
+      service.faqs.forEach((faqItem, idx) => {
+        const resolvedQ = faqItem.q.replace(/{CITY}/g, city.name);
+        const resolvedA = faqItem.a
+          .replace(/{CITY}/g, city.name)
+          .replace(/{MIN_COST}/g, formatCurrency(rangeMin, city.currency))
+          .replace(/{MAX_COST}/g, formatCurrency(rangeMax, city.currency));
+
+        // Inject FAQ Card in DOM
+        const card = document.createElement('div');
+        card.className = "bg-white border border-slate-200 rounded-xl p-5 shadow-sm";
+        card.innerHTML = `
+          <h3 class="text-base font-bold text-slate-900 mb-2 flex items-start gap-2">
+            <span class="text-brand-600 font-extrabold text-sm mt-0.5">Q.</span>
+            <span>${resolvedQ}</span>
+          </h3>
+          <p class="text-sm text-slate-600 leading-relaxed pl-5">${resolvedA}</p>
+        `;
+        elements.faqContainer.appendChild(card);
+
+        // Append Schema data object
+        schemaQuestions.push({
+          "@type": "Question",
+          "name": resolvedQ,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": resolvedA
+          }
+        });
+      });
+
+      // Construct and inject complete JSON-LD FAQPage object
+      const fullSchema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": schemaQuestions
+      };
+
+      elements.faqSchemaTag.textContent = JSON.stringify(fullSchema, null, 2);
+    }
+
+    // Run Engine on load
+    document.addEventListener('DOMContentLoaded', initApp);
+  </script>
+</body>
+  </html>
